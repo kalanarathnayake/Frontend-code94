@@ -127,13 +127,6 @@ export default function AddProduct() {
                 })
         }
     }
-    // const [sku, setSku] = useState('');
-    // const [quantity, setQuantity] = useState('');
-    // const [productName, setProductName] = useState('');
-    // const [imgUrl, setImgUrl] = useState('');
-    // const [productDescription, setProductDescription] = useState('');
-    // const [isFavourite, setIsFavourite] = useState('');
-    // const [price, setPrice] = useState('');
 
     return (
         <div className="flex flex-col px-5 pt-1 scroll-m-1 scroll-smooth ">
