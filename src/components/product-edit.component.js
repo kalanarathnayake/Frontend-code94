@@ -14,10 +14,12 @@ export default function EditProduct() {
     const [productDescription, setProductDescription] = useState('');
     const [isFavourite, setIsFavourite] = useState();
     const [price, setPrice] = useState('');
+    const [id, setID] = useState(null);
 
     useEffect(() => {
-        console.log("View product ID :" + localStorage.getItem('Sku'));
+        console.log("View product ID :" + localStorage.getItem('Id'));
 
+        setID(localStorage.getItem('Id'))
         setSku(localStorage.getItem('SKU'));
         setQuantity(localStorage.getItem('Quantity'));
         setProductName(localStorage.getItem('ProductName'));
@@ -106,7 +108,7 @@ export default function EditProduct() {
                 timer: 2800000
             })
         } else {
-            axios.put(`http://localhost:5000/product/${sku}`, product)
+            axios.put(`http://localhost:5000/product/${id}`, product)
                 .then(res => {
                     console.log(res.status);
                     if (res.status === 200) {
@@ -172,7 +174,7 @@ export default function EditProduct() {
                                                         required
                                                         className="border-0 form-control"
                                                         style={{ backgroundColor: "#F7F7F7" }}
-
+                                                        value={sku}
                                                         onChange={(e) => setSku(e.target.value)}
                                                     />
                                                 </div>
@@ -187,7 +189,7 @@ export default function EditProduct() {
                                                     <input type="text"
                                                         className="border-0 form-control"
                                                         style={{ backgroundColor: "#F7F7F7" }}
-
+                                                        value={quantity}
                                                         onChange={(e) => setProductName(e.target.value)}
                                                     />
                                                 </div>
@@ -199,7 +201,7 @@ export default function EditProduct() {
                                                         <input type="text"
                                                             className="border-0 form-control"
                                                             style={{ backgroundColor: "#F7F7F7" }}
-
+                                                            value={productName}
                                                             onChange={(e) => setQuantity(e.target.value)}
                                                         />
                                                     </div>
@@ -215,7 +217,7 @@ export default function EditProduct() {
                                                     <textarea type="time"
                                                         className="border-0 form-control"
                                                         style={{ backgroundColor: "#F7F7F7" }}
-
+                                                        value={productDescription}
                                                         onChange={(e) => setProductDescription(e.target.value)}
                                                     />
                                                 </div>
@@ -226,7 +228,7 @@ export default function EditProduct() {
                                                     <input type="number"
                                                         className="border-0 form-control"
                                                         style={{ backgroundColor: "#F7F7F7" }}
-
+                                                        value={price}
                                                         onChange={(e) => setPrice(e.target.value)}
                                                     />
                                                 </div>
@@ -239,6 +241,7 @@ export default function EditProduct() {
                                                     <input type="text"
                                                         className="border-0 form-control"
                                                         style={{ backgroundColor: "#F7F7F7" }}
+                                                        value={imgUrl}
                                                         onChange={(e) => setImgUrl(e.target.value)}
                                                     />
                                                 </div>
