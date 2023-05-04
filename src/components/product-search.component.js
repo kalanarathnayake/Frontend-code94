@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Swal from "sweetalert2";
 
-export default function ProductList() {
+export default function ProductSearchList() {
 
     const [searchInput, setSearchInput] = useState('');
     const [filteredResults, setFilteredResults] = useState([]);
@@ -11,10 +11,16 @@ export default function ProductList() {
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
+
+        console.log("View package is" + localStorage.getItem('SearchInput'));
+        setSearchInput(localStorage.getItem('SearchInput'))
+
+
         axios.get(`http://localhost:5000/product/`)
             .then((response) => {
                 setAPIData(response.data);
             })
+
     }, [])
 
     const getData = () => {
@@ -75,15 +81,12 @@ export default function ProductList() {
         console.log("Product Name is :" + localStorage.setItem('ProductName', productName));
     }
 
-     const setSearch = () => {
-
-        // sInput=searchInput
-        localStorage.setItem('SearchInput', searchInput);
-        // let { sInput } = searchInput;
-        // localStorage.setItem('SearchInput', sInput);
+     const setSearch = (searchInput) => {
+        let { sInput } = searchInput;
+        localStorage.setItem('SearchInput', sInput);
        
         //check payload
-        console.log("Search Input is :" + localStorage.setItem('SearchInput', searchInput));
+        console.log("Search Input is :" + localStorage.setItem('SearchInput', sInput));
        
     }
 
@@ -95,18 +98,16 @@ export default function ProductList() {
     //     console.log("Product Name is :" + localStorage.setItem('ProductName', productName));
     // }
 
-    // const searchItems = (searchValue) => {
-    //     setSearchInput(searchValue)
-    //     if (searchInput !== '') {
-    //         const filteredData = APIData.filter((data) => {
-    //             return Object.values(data).join('').toLowerCase().includes(searchInput.toLowerCase())
-    //         })
-    //         setFilteredResults(filteredData)
-    //     }
-    //     else {
-    //         setFilteredResults(APIData)
-    //     }
-    // }
+    const searchItems = (searchInput) => {
+        setSearchInput(searchInput)
+       
+            const filteredData = APIData.filter((data) => {
+                return Object.values(data).join('').toLowerCase().includes(searchInput.toLowerCase())
+            })
+            setFilteredResults(filteredData)
+       
+        
+    }
 
     return (
         <div>
@@ -117,7 +118,7 @@ export default function ProductList() {
                             <div class="grid grid-cols-1 gap-4 content-start">
                                 <table className='mt-2 '>
                                     <tr>
-                                        <th className='uppercase drop-shadow-md'><h1>Products</h1></th>
+                                        <th className='uppercase drop-shadow-md'><h1>Products Search</h1></th>
                                     </tr>
                                     <tr class="flex">
                                         <div class="flex max-w-3xl mb-5 p-2 sm:flex-row sm:text-left sm:justify-end">
@@ -127,6 +128,7 @@ export default function ProductList() {
                                                         <input
                                                             className="p-2 rounded-full"
                                                             type="search"
+                                                            
                                                             style={{ backgroundColor: "#F7F7F7", borderRadius: "100px" }}
                                                             placeholder='Filter By Product ID'
                                                             onChange={(e) => setSearchInput(e.target.value)}
@@ -136,7 +138,7 @@ export default function ProductList() {
                                                                 <path fillRule="evenodd" d="M10.5 3.75a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zM2.25 10.5a8.25 8.25 0 1114.59 5.28l4.69 4.69a.75.75 0 11-1.06 1.06l-4.69-4.69A8.25 8.25 0 012.25 10.5z" clipRule="evenodd" />
                                                             </svg>
 
-                                                            <Link to='/productSearch'><input className='text-white' type="submit" value="Search" onClick={setSearch} /></Link>
+                                                            <input className='text-white' type="submit" value="Search" onClick={() => setSearch(searchInput)} />
                                                         </div>
                                                     </div>
                                                 </form>
@@ -211,7 +213,7 @@ export default function ProductList() {
                                                 }
                                             })
                                         ) : (
-                                            APIData.map((data) => {
+                                            filteredResults.map((data) => {
                                                 return (
                                                     <tr className='bg-transparent border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600'>
                                                         <td className='py-4 pl-6 text-base font-semibold text'>{data.sku}</td>
