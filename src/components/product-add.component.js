@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import Swal from "sweetalert2";
 import "react-datepicker/dist/react-datepicker.css"
+import { useDispatch } from 'react-redux';
+import {saveProduct} from '../redux/actions'
 
 export default function AddProduct() {
     const [sku, setSku] = useState('');
@@ -11,6 +13,25 @@ export default function AddProduct() {
     const [productDescription, setProductDescription] = useState('');
     const [isFavourite, setIsFavourite] = useState(1);
     const [price, setPrice] = useState('');
+
+    //react
+    const dispatch = useDispatch();
+
+    const handleSaveObject = (e) => {
+        e.preventDefault();
+
+        const products = {
+            sku: sku,
+            quantity: quantity,
+            productName: productName,
+            imgUrl: imgUrl,
+            productDescription: productDescription,
+            isFavourite: isFavourite,
+            price: price,
+        }
+        console.log(products);
+        dispatch(saveProduct(products));
+      };
 
     const postData = (e) => {
         e.preventDefault();
