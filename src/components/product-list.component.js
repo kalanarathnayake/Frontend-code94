@@ -182,6 +182,7 @@ export default function ProductList() {
                                                                                     </svg>
                                                                                 </div>
                                                                             </button>
+                                                                            <input type="checkbox" className="toggle toggle-xs" checked />
                                                                         </Link>
                                                                     </div>
                                                                     <div class="ml-2">
@@ -220,8 +221,8 @@ export default function ProductList() {
                                                         <td className='px-3 py-4 text-base font-semibold'>${data.price}</td>
                                                         <td className='px-6 py-4'>
                                                             <div class="flex justify-center">
-                                                                <div class="ml-2">
-                                                                    <Link to='/editProduct'>
+                                                                <div class="">
+                                                                    {/* <Link to='/editProduct'>
                                                                         <button className='inline-flex items-center text-sm font-medium text-black duration-300 rounded-full hover:bg-yellow-100' onClick={() => setData(data)}>
                                                                             <div class="">
                                                                                 <svg class="h-5 w-5 m-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -229,7 +230,16 @@ export default function ProductList() {
                                                                                 </svg>
                                                                             </div>
                                                                         </button>
-                                                                    </Link>
+                                                                    </Link> */}
+                                                                    <div class="">
+                                                                        <div className="border-0 form-control">
+                                                                            <label className="cursor-pointer label">
+                                                                                <input type="checkbox" className="toggle toggle-xs" />
+                                                                                {/* checked */}
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+
                                                                 </div>
                                                                 <div class="ml-2">
                                                                     <Link to='/editProduct'>
