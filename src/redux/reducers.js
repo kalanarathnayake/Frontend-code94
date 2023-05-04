@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux'
-import {saveProduct} from './actions'
+import { saveProduct } from './actions'
 
 const initialState = {
     savedObject: {},
     saveObjectError: null,
     objects: [],
-  };
+};
 
 export const rootReducer = combineReducers({
 
@@ -14,7 +14,7 @@ export const rootReducer = combineReducers({
 export const productsReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'SAVE_OBJECT_SUCCESS':
-            return{
+            return {
                 ...state,
                 savedObject: action.payload,
                 saveObjectError: null,

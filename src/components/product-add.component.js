@@ -3,7 +3,7 @@ import axios from 'axios';
 import Swal from "sweetalert2";
 import "react-datepicker/dist/react-datepicker.css"
 import { useDispatch } from 'react-redux';
-import {saveProduct} from '../redux/actions'
+import { saveProduct } from '../redux/actions'
 
 export default function AddProduct() {
     const [sku, setSku] = useState('');
@@ -31,7 +31,7 @@ export default function AddProduct() {
         }
         console.log(products);
         dispatch(saveProduct(products));
-      };
+    };
 
     const postData = (e) => {
         e.preventDefault();

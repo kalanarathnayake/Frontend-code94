@@ -1,7 +1,8 @@
 
-import { createStore, applyMiddleware} from 'redux'
+import { createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk';
-import rootReducer, { productsReducer } from './reducers'
+import { productsReducer } from './reducers'
+// import rootReducer, { productsReducer } from './reducers'
 
 const store = createStore(
     productsReducer,
