@@ -108,9 +108,9 @@ export default function ProductList() {
                                         <th className='uppercase drop-shadow-md'><h1>Products</h1></th>
                                     </tr>
                                     <tr class="flex">
-                                        <div class="flex max-w-3xl mb-5 p-2 sm:flex-row sm:text-left sm:justify-end">
+                                        <div class="flex  px-1 py-2 rounded-full max-w-sm mb-5 sm:flex-row sm:text-left sm:justify-end" style={{ backgroundColor: "#F7F7F7" }}>
                                             <div class="grid grid-cols-2 gap-4 form-group">
-                                                <form class=" p-1 rounded-full" style={{ backgroundColor: "#F7F7F7" }}>
+                                                <form class=" " >
                                                     <div class=" flex flex-row justify-between">
                                                         <input
                                                             className="p-2 ml-2 rounded-full"
@@ -129,14 +129,13 @@ export default function ProductList() {
                                                     </div>
                                                 </form>
                                             </div>
-
                                         </div>
                                         <div class="flex container justify-between">
                                             <div class="">
                                             </div>
-                                            <div className="flex mt-2 ">
+                                            <a className="flex mt-2" href='createproduct'>
                                                 <div class="">
-                                                    <input className='p-2 px-5 text-white rounded-lg' type="button" value="New Product" style={{ backgroundColor: "#001EB9" }} />
+                                                    <button href="" className='p-2 px-5 text-white rounded-lg' type="button" style={{ backgroundColor: "#001EB9" }} >New Product</button>
                                                 </div>
                                                 <div class="">
                                                     <button type="" class="mx-2 p-2 border-2 rounded-lg border-blue-800" >
@@ -145,7 +144,7 @@ export default function ProductList() {
                                                         </svg>
                                                     </button>
                                                 </div>
-                                            </div>
+                                            </a>
                                         </div>
                                     </tr>
                                 </table>
@@ -186,13 +185,15 @@ export default function ProductList() {
                                                                         </Link>
                                                                     </div>
                                                                     <div class="ml-2">
-                                                                        <button className='inline-flex items-center text-sm font-medium text-black duration-300 rounded-full hover:bg-blue-100'>
-                                                                            <div class="">
-                                                                                <svg class="h-5 w-5 m-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                                                    <path d="M21.731 2.269a2.625 2.625 0 00-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 000-3.712zM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 00-1.32 2.214l-.8 2.685a.75.75 0 00.933.933l2.685-.8a5.25 5.25 0 002.214-1.32L19.513 8.2z" />
-                                                                                </svg>
-                                                                            </div>
-                                                                        </button>
+                                                                        <Link to='/editProduct'>
+                                                                            <button className='items-center text-sm font-medium text-black duration-300 rounded-full nline-flex hover:bg-blue-100' onClick={() => setData(data._id)}>
+                                                                                <div class="">
+                                                                                    <svg class="h-5 w-5 m-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                                        <path d="M21.731 2.269a2.625 2.625 0 00-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 000-3.712zM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 00-1.32 2.214l-.8 2.685a.75.75 0 00.933.933l2.685-.8a5.25 5.25 0 002.214-1.32L19.513 8.2z" />
+                                                                                    </svg>
+                                                                                </div>
+                                                                            </button>
+                                                                        </Link>
                                                                     </div>
                                                                     <div class="ml-2">
                                                                         <button className='inline-flex items-center text-sm font-medium text-black duration-300 rounded-full hover:bg-red-100' onClick={() => onDelete(data._id)} >
@@ -217,7 +218,7 @@ export default function ProductList() {
                                                         <td className='px-6 py-4 text-base font-semibold'>{data.imgUrl}</td>
                                                         <td className='px-6 py-4 text-base font-semibold'>{data.productName}</td>
                                                         <td className='px-3 py-4 text-base font-semibold'>${data.price}</td>
-                                                        <td className='px-6 py-4 text-base font-semibold'>
+                                                        <td className='px-6 py-4'>
                                                             <div class="flex justify-center">
                                                                 <div class="ml-2">
                                                                     <Link to='/editProduct'>
@@ -231,13 +232,15 @@ export default function ProductList() {
                                                                     </Link>
                                                                 </div>
                                                                 <div class="ml-2">
-                                                                    <button className='inline-flex items-center text-sm font-medium text-black duration-300 rounded-full hover:bg-blue-100'>
-                                                                        <div class="">
-                                                                            <svg class="h-5 w-5 m-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                                                <path d="M21.731 2.269a2.625 2.625 0 00-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 000-3.712zM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 00-1.32 2.214l-.8 2.685a.75.75 0 00.933.933l2.685-.8a5.25 5.25 0 002.214-1.32L19.513 8.2z" />
-                                                                            </svg>
-                                                                        </div>
-                                                                    </button>
+                                                                    <Link to='/editProduct'>
+                                                                        <button className='items-center text-sm font-medium text-black duration-300 rounded-full nline-flex hover:bg-blue-100' onClick={() => setData(data._id)}>
+                                                                            <div class="">
+                                                                                <svg class="h-5 w-5 m-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                                    <path d="M21.731 2.269a2.625 2.625 0 00-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 000-3.712zM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 00-1.32 2.214l-.8 2.685a.75.75 0 00.933.933l2.685-.8a5.25 5.25 0 002.214-1.32L19.513 8.2z" />
+                                                                                </svg>
+                                                                            </div>
+                                                                        </button>
+                                                                    </Link>
                                                                 </div>
                                                                 <div class="ml-2">
                                                                     <button className='inline-flex items-center text-sm font-medium text-black duration-300 rounded-full hover:bg-red-100' onClick={() => onDelete(data._id)} >

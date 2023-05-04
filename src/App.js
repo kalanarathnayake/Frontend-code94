@@ -3,8 +3,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import Navbar from "./components/navbar.component";
-// import { CreateGroup } from './components/group-add.component';
 import ProductList from './components/product-list.component';
+import AddProduct from './components/product-add.component';
 
 function App() {
   return (
@@ -13,7 +13,8 @@ function App() {
       <Router>
         <Routes>
           <Route exact path="/product" element={<ProductList />} />
-          {/* <Route exact path="/createproduct" element={<AddPackage />} />Done */}
+          <Route exact path="/createproduct" element={<AddProduct />} />
+          {/* <Route exact path="/createproduct" element={<AddProduct />} /> */}
         </Routes>
       </Router>
     </div>
