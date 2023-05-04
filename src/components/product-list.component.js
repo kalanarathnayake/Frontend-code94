@@ -113,7 +113,7 @@ export default function ProductList() {
                                                 <form class=" p-1 rounded-full" style={{ backgroundColor: "#F7F7F7" }}>
                                                     <div class=" flex flex-row justify-between">
                                                         <input
-                                                            className="p-2 rounded-full"
+                                                            className="p-2 ml-2 rounded-full"
                                                             type="search"
                                                             style={{ backgroundColor: "#F7F7F7", borderRadius: "100px" }}
                                                             placeholder='Filter By Product ID'
@@ -131,9 +131,20 @@ export default function ProductList() {
                                             </div>
 
                                         </div>
-                                        <div class="">
-                                            <div className="">
-                                                <input className='' type="button" value="Add Package" />
+                                        <div class="flex container justify-between">
+                                            <div class="">
+                                            </div>
+                                            <div className="flex mt-2 ">
+                                                <div class="">
+                                                    <input className='p-2 px-5 text-white rounded-lg' type="button" value="New Product" style={{ backgroundColor: "#001EB9" }} />
+                                                </div>
+                                                <div class="">
+                                                    <button type="" class="mx-2 p-2 border-2 rounded-lg border-blue-800" >
+                                                        <svg class="h-5 w-5 " fill="none" viewBox="0 0 24 24" stroke="currentColor" style={{ color: "#001EB9", }}>
+                                                            <path fillRule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clipRule="evenodd" />
+                                                        </svg>
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
                                     </tr>
