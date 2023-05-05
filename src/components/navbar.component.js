@@ -13,7 +13,7 @@ function navbar() {
         <div className="mb-2 sm:mb-0">
         </div>
         <div className='text-lg font-light hover:text-blue-dark'>
-          <a href="/product" className="m-2 text-black no-underline duration-300 hover:text-blue-800 hover:font-normal">Products</a>
+          {/* <a href="/" className="m-2 text-black no-underline duration-300 hover:text-blue-800 hover:font-normal">Products</a> */}
         </div>
 
         <div className="grid grid-cols-2 gap-1">

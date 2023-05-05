@@ -1,31 +1,43 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Swal from "sweetalert2";
 import "react-datepicker/dist/react-datepicker.css"
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import {
+    createProduct,
+} from '../redux/slices/productSlice';
+
 
 export default function AddProduct() {
-    const [sku, setSku] = useState('');
-    const [quantity, setQuantity] = useState('');
-    const [productName, setProductName] = useState('');
-    const [imgUrl, setImgUrl] = useState('');
-    const [productDescription, setProductDescription] = useState('');
-    const [isFavourite, setIsFavourite] = useState(1);
-    const [price, setPrice] = useState('');
+    const dispatch = useDispatch();
+    const history = useHistory();
+    const productSlice = useSelector((state) => state.productSlice);
 
-    const postData = (e) => {
+    const [creatableProduct, setCreateProduct] = useState({
+        sku: '',
+        quantity: '',
+        productName: '',
+        imgUrl: '',
+        productDescription: '',
+        isFavourite: true,
+        price: '',
+        id: '',
+    });
+
+    const createAPIData = (e) => {
         e.preventDefault();
-        const products = {
-            sku: sku,
-            quantity: quantity,
-            productName: productName,
-            imgUrl: imgUrl,
-            productDescription: productDescription,
-            isFavourite: isFavourite,
-            price: price,
-        }
-        console.log(products);
-
-        if (sku.length <= 3) {
+        const product = {
+            sku: creatableProduct.sku,
+            quantity: creatableProduct.quantity,
+            productName: creatableProduct.productName,
+            imgUrl: creatableProduct.imgUrl,
+            productDescription: creatableProduct.productDescription,
+            isFavourite: creatableProduct.isFavourite,
+            price: creatableProduct.price,
+        };
+        //check payload
+        if (creatableProduct?.sku?.length <= 3) {
             Swal.fire({
                 icon: 'error',
                 title: 'Error',
@@ -35,12 +47,10 @@ export default function AddProduct() {
                 showConfirmButton: true,
                 confirmButtonText: 'Okay',
                 confirmButtonColor: '#f2220f',
-
                 iconColor: '#60e004',
-                timer: 2800000
-            })
-        } else if (quantity.length <= 0) {
-
+                timer: 2800000,
+            });
+        } else if (creatableProduct?.quantity?.length <= 0) {
             Swal.fire({
                 icon: 'error',
                 title: 'Error',
@@ -51,10 +61,9 @@ export default function AddProduct() {
                 confirmButtonText: 'Okay',
                 confirmButtonColor: '#f2220f',
                 iconColor: '#60e004',
-                timer: 2800000
-            })
-        }
-        else if (productName.length <= 5) {
+                timer: 2800000,
+            });
+        } else if (creatableProduct?.productName?.length <= 5) {
             Swal.fire({
                 icon: 'error',
                 title: 'Error',
@@ -65,9 +74,9 @@ export default function AddProduct() {
                 confirmButtonText: 'Okay',
                 confirmButtonColor: '#f2220f',
                 iconColor: '#60e004',
-                timer: 2800000
-            })
-        } else if (productDescription.length <= 5) {
+                timer: 2800000,
+            });
+        } else if (creatableProduct?.productDescription?.length <= 5) {
             Swal.fire({
                 icon: 'error',
                 title: 'Error',
@@ -78,10 +87,9 @@ export default function AddProduct() {
                 confirmButtonText: 'Okay',
                 confirmButtonColor: '#f2220f',
                 iconColor: '#60e004',
-                timer: 2800000
-            })
-        }
-        else if (price.length <= 1) {
+                timer: 2800000,
+            });
+        } else if (creatableProduct?.price?.length <= 1) {
             Swal.fire({
                 icon: 'error',
                 title: 'Error',
@@ -92,41 +100,33 @@ export default function AddProduct() {
                 confirmButtonText: 'Okay',
                 confirmButtonColor: '#f2220f',
                 iconColor: '#60e004',
-                timer: 2800000
-            })
+                timer: 2800000,
+            });
+        } else {
+            console.log(creatableProduct);
+            dispatch(
+                createProduct({ product: creatableProduct })
+            );
         }
-        else {
-            axios.post('http://localhost:5000/product/add/', products,)
-                .then(res => {
-                    console.log(res);
-                    if (res.status === 200) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'Successful',
-                            text: 'Product has been added! Package ID is #' + sku,
-                            background: '#fff',
-                            showConfirmButton: true,
-                            confirmButtonText: 'Okay',
-                            confirmButtonColor: '#0712e0',
-                            iconColor: '#60e004',
-                            timer: 2800000
-                        })
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Error',
-                            text: 'Error in adding!',
-                            background: '#fff',
-                            showConfirmButton: true,
-                            confirmButtonText: 'Okay',
-                            confirmButtonColor: '#f2220f',
-                            iconColor: '#60e004',
-                            timer: 2800000
-                        })
-                    }
-                })
+    };
+
+    useEffect(() => {
+        if (productSlice.createProduct._id) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Successful',
+                text: 'Product has been Created!',
+                background: '#fff',
+                showConfirmButton: true,
+                confirmButtonText: 'Okay',
+                confirmButtonColor: '#0712e0',
+                iconColor: '#60e004',
+                timer: 2800000,
+            });
+            history.push('/');
         }
-    }
+    }, [productSlice.createProduct]);
+
 
     return (
         <div className="flex flex-col px-5 pt-1 scroll-m-1 scroll-smooth ">
@@ -156,8 +156,14 @@ export default function AddProduct() {
                                                     required
                                                     className="border-0 form-control"
                                                     style={{ backgroundColor: "#F7F7F7" }}
+                                                    value={creatableProduct.sku}
 
-                                                    onChange={(e) => setSku(e.target.value)}
+                                                    onChange={(e) =>
+                                                        setCreateProduct({
+                                                            ...createProduct,
+                                                            sku: e.target.value,
+                                                        })
+                                                    }
                                                 />
                                             </div>
                                             <div class="">
@@ -171,8 +177,14 @@ export default function AddProduct() {
                                                 <input type="text"
                                                     className="border-0 form-control"
                                                     style={{ backgroundColor: "#F7F7F7" }}
+                                                    value={creatableProduct.productName}
 
-                                                    onChange={(e) => setProductName(e.target.value)}
+                                                    onChange={(e) =>
+                                                        setCreateProduct({
+                                                            ...createProduct,
+                                                            productName: e.target.value,
+                                                        })
+                                                    }
                                                 />
                                             </div>
                                             <div className="grid grid-cols-1 gap-4 form-group">
@@ -183,8 +195,14 @@ export default function AddProduct() {
                                                     <input type="text"
                                                         className="border-0 form-control"
                                                         style={{ backgroundColor: "#F7F7F7" }}
+                                                        value={creatableProduct.quantity}
 
-                                                        onChange={(e) => setQuantity(e.target.value)}
+                                                        onChange={(e) =>
+                                                            setCreateProduct({
+                                                                ...createProduct,
+                                                                quantity: e.target.value,
+                                                            })
+                                                        }
                                                     />
                                                 </div>
 
@@ -199,8 +217,14 @@ export default function AddProduct() {
                                                 <textarea type="time"
                                                     className="border-0 form-control"
                                                     style={{ backgroundColor: "#F7F7F7" }}
+                                                    value={creatableProduct.productDescription}
 
-                                                    onChange={(e) => setProductDescription(e.target.value)}
+                                                    onChange={(e) =>
+                                                        setCreateProduct({
+                                                            ...createProduct,
+                                                            productDescription: e.target.value,
+                                                        })
+                                                    }
                                                 />
                                             </div>
                                             <div className="">
@@ -210,8 +234,13 @@ export default function AddProduct() {
                                                 <input type="number"
                                                     className="border-0 form-control"
                                                     style={{ backgroundColor: "#F7F7F7" }}
+                                                    value={creatableProduct.price}
 
-                                                    onChange={(e) => setPrice(e.target.value)}
+                                                    onChange={(e) =>
+                                                        setCreateProduct({
+                                                            ...createProduct,
+                                                            price: e.target.value,
+                                                        })}
                                                 />
                                             </div>
                                         </div><p />
@@ -223,12 +252,22 @@ export default function AddProduct() {
                                                 <input type="text"
                                                     className="border-0 form-control"
                                                     style={{ backgroundColor: "#F7F7F7" }}
-                                                    onChange={(e) => setImgUrl(e.target.value)}
+                                                    value={creatableProduct.imgUrl}
+
+                                                    onChange={(e) =>
+                                                        setCreateProduct({
+                                                            ...createProduct,
+                                                            imgUrl: e.target.value,
+                                                        })
+                                                    }
                                                 />
                                             </div>
                                         </div>
                                         <div className="text-center align-middle form-group">
-                                            <input className='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mt-4 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800' type="submit" value="Add Package" onClick={postData} />
+                                            <input
+                                                className='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mt-4 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800'
+                                                type="submit" value="Add Product"
+                                                onClick={createAPIData} />
                                         </div>
                                     </div>
                                 </form>
