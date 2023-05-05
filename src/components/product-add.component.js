@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import Swal from "sweetalert2";
 import "react-datepicker/dist/react-datepicker.css"
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,7 +6,6 @@ import { useHistory } from 'react-router-dom';
 import {
     createProduct,
 } from '../redux/slices/productSlice';
-
 
 export default function AddProduct() {
     const dispatch = useDispatch();
@@ -21,8 +19,7 @@ export default function AddProduct() {
         imgUrl: '',
         productDescription: '',
         isFavourite: true,
-        price: '',
-        id: '',
+        price: ''
     });
 
     const createAPIData = (e) => {
@@ -37,7 +34,7 @@ export default function AddProduct() {
             price: creatableProduct.price,
         };
         //check payload
-        if (creatableProduct?.sku?.length <= 3) {
+        if (product.sku.length <= 3) {
             Swal.fire({
                 icon: 'error',
                 title: 'Error',
@@ -50,7 +47,7 @@ export default function AddProduct() {
                 iconColor: '#60e004',
                 timer: 2800000,
             });
-        } else if (creatableProduct?.quantity?.length <= 0) {
+        } else if (product.quantity.length <= 0) {
             Swal.fire({
                 icon: 'error',
                 title: 'Error',
@@ -63,7 +60,7 @@ export default function AddProduct() {
                 iconColor: '#60e004',
                 timer: 2800000,
             });
-        } else if (creatableProduct?.productName?.length <= 5) {
+        } else if (product.productName.length <= 5) {
             Swal.fire({
                 icon: 'error',
                 title: 'Error',
@@ -76,7 +73,7 @@ export default function AddProduct() {
                 iconColor: '#60e004',
                 timer: 2800000,
             });
-        } else if (creatableProduct?.productDescription?.length <= 5) {
+        } else if (product.productDescription.length <= 5) {
             Swal.fire({
                 icon: 'error',
                 title: 'Error',
@@ -89,7 +86,7 @@ export default function AddProduct() {
                 iconColor: '#60e004',
                 timer: 2800000,
             });
-        } else if (creatableProduct?.price?.length <= 1) {
+        } else if (product.price.length <= 1) {
             Swal.fire({
                 icon: 'error',
                 title: 'Error',
@@ -103,15 +100,15 @@ export default function AddProduct() {
                 timer: 2800000,
             });
         } else {
-            console.log(creatableProduct);
+            console.log(product);
             dispatch(
-                createProduct({ product: creatableProduct })
+                createProduct({ product: product })
             );
         }
     };
 
     useEffect(() => {
-        if (productSlice.createProduct._id) {
+        if (productSlice.isProductCreated) {
             Swal.fire({
                 icon: 'success',
                 title: 'Successful',
@@ -125,7 +122,7 @@ export default function AddProduct() {
             });
             history.push('/');
         }
-    }, [productSlice.createProduct]);
+    }, [productSlice.isProductCreated]);
 
 
     return (
@@ -160,7 +157,7 @@ export default function AddProduct() {
 
                                                     onChange={(e) =>
                                                         setCreateProduct({
-                                                            ...createProduct,
+                                                            ...creatableProduct,
                                                             sku: e.target.value,
                                                         })
                                                     }
@@ -181,7 +178,7 @@ export default function AddProduct() {
 
                                                     onChange={(e) =>
                                                         setCreateProduct({
-                                                            ...createProduct,
+                                                            ...creatableProduct,
                                                             productName: e.target.value,
                                                         })
                                                     }
@@ -199,7 +196,7 @@ export default function AddProduct() {
 
                                                         onChange={(e) =>
                                                             setCreateProduct({
-                                                                ...createProduct,
+                                                                ...creatableProduct,
                                                                 quantity: e.target.value,
                                                             })
                                                         }
@@ -221,7 +218,7 @@ export default function AddProduct() {
 
                                                     onChange={(e) =>
                                                         setCreateProduct({
-                                                            ...createProduct,
+                                                            ...creatableProduct,
                                                             productDescription: e.target.value,
                                                         })
                                                     }
@@ -238,7 +235,7 @@ export default function AddProduct() {
 
                                                     onChange={(e) =>
                                                         setCreateProduct({
-                                                            ...createProduct,
+                                                            ...creatableProduct,
                                                             price: e.target.value,
                                                         })}
                                                 />
@@ -256,7 +253,7 @@ export default function AddProduct() {
 
                                                     onChange={(e) =>
                                                         setCreateProduct({
-                                                            ...createProduct,
+                                                            ...creatableProduct,
                                                             imgUrl: e.target.value,
                                                         })
                                                     }

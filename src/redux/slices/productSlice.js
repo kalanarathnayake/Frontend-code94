@@ -8,6 +8,7 @@ import {
 
 const initialState = {
   selectedProductIdToEdit: '',
+  isProductCreated: false,
   createProduct: {},
   products: [],
   filteredProducts: [],
@@ -31,6 +32,9 @@ const productSlice = createSlice({
     resetEditProduct: (state) => {
       state.editProduct = {};
     },
+    isProductCreatedReducer: (state) => {
+      state.isProductCreated = true;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -40,6 +44,7 @@ const productSlice = createSlice({
       })
       .addCase(createProduct.fulfilled, (state, action) => {
         state.loading = false;
+        state.isProductCreated = true;
         state.createProduct = { ...state.createProduct, ...action.payload };
       })
       .addCase(createProduct.rejected, (state, action) => {
@@ -108,6 +113,7 @@ const productSlice = createSlice({
 export const createProduct = createAsyncThunk(
   'productSlice/createProduct',
   async (product) => {
+    console.log(product)
     return await saveProduct(product);
   }
 );
@@ -133,6 +139,6 @@ export const removeProduct = createAsyncThunk(
   }
 );
 
-export const { setSelectedProductIdToEdit, resetEditProduct } =
+export const { setSelectedProductIdToEdit, isProductCreatedReducer, resetEditProduct } =
   productSlice.actions;
 export default productSlice.reducer;

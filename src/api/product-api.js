@@ -1,5 +1,6 @@
 export const saveProduct = async (product) => {
   try {
+    console.log(product, 'aasdfsad');
     const productRes = await fetch(
       `${process.env.REACT_APP_BACKEND_URL}/product/add`,
       {
@@ -10,24 +11,9 @@ export const saveProduct = async (product) => {
         },
       }
     );
-
     return await productRes.json();
   } catch (error) {
-    return error.message;
-  }
-};
-
-export const fetchProducts = async () => {
-  try {
-    const productsRes = await fetch(
-      `${process.env.REACT_APP_BACKEND_URL}/product/`,
-      {
-        method: 'GET',
-      }
-    );
-
-    return await productsRes.json();
-  } catch (error) {
+    console.log(error);
     return error.message;
   }
 };
@@ -51,6 +37,23 @@ export const editProduct = async (id, product) => {
     return error.message;
   }
 };
+
+export const fetchProducts = async () => {
+  try {
+    const productsRes = await fetch(
+      `${process.env.REACT_APP_BACKEND_URL}/product/`,
+      {
+        method: 'GET',
+      }
+    );
+
+    return await productsRes.json();
+  } catch (error) {
+    return error.message;
+  }
+};
+
+
 
 export const deleteProduct = async (productId) => {
   try {
